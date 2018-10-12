@@ -1,18 +1,18 @@
 # Step-by-step Instructions on How to Use CMU Multimodal Data SDK
 
-1. Clone the github project:
+## Clone the github project:
 
 ```bash
 git clone git@github.com:A2Zadeh/CMU-MultimodalSDK.git
 ```
 
-2. Install required python packages:
+## Install required python packages:
 
 ```bash
 pip install h5py validators tqdm numpy argparse
 ```
 
-3. Download datasets: Go to the project directory, run examples/download_dataset.py.
+## Download datasets: Go to the project directory, run examples/download_dataset.py.
 
 ```bash
 cd CMU-MultimodalSDK
@@ -21,7 +21,7 @@ python examples/download_dataset.py dataset_name
 Here the dataset_name option can be "cmu_mosei" for downloading CMU_MOSEI, "cmu_mosi" for downloading CMU_MOSI, "pom" for downloading POM.
 After this step, the dataset will be downloaded to the folder /downloaded_dataset.
 
-4. Access the downloaded dataset: 
+## Access the downloaded dataset: 
 ```python
 >>>import mmsdk
 >>>from mmsdk import mmdatasdk
@@ -69,7 +69,7 @@ To access its glove vectors features:
 ```
 Which means there are 183 words in the video. Each word is represented as a 300-dim glove vector, and its beginning and ending time in the video is stored as a 2-dim array.
 
-5. Multimodal data alignment:
+## Multimodal data alignment:
 
 For a video, each modality of features are extracted from different time intervals, and thus are different in shape. For example:
 
@@ -108,6 +108,6 @@ Where key_name is "glove_vectors" for word-level alignment and "Sentiment Label"
 
 Multiple functions can be passed to *collapse_functions*, each of them will be applied one by one and will be concatenated as the final output. 
 
-With aligned features, one can freely apply any machine learning models.
+With the aligned features, one can freely apply any machine learning models.
 
 
