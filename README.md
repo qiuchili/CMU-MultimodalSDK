@@ -71,7 +71,43 @@ Which means there are 183 words in the video. Each word is represented as a 300-
 
 5. Multimodal data alignment:
 
+For a video, each modality of features are extracted from different time intervals, and thus are different in shape. For example:
 
+```python
+>>> acoustic_features = cmumosei_highlevel.computational_sequences['COAVAREP'].data
+>>> language_features = cmumosei_highlevel.computational_sequences['glove_vectors'].data
+>>> visual_features = cmumosei_highlevel.computational_sequences['FACET 4.2'].data
+>>> video_vintervals = visual_features['--qXJuDtHPw']['intervals'].value
+>>> video_aintervals = acoustic_features['--qXJuDtHPw']['intervals'].value
+>>> video_lintervals = language_features['--qXJuDtHPw']['intervals'].value
+>>> video_vintervals.shape
+(1715, 2)
+>>> video_lintervals.shape
+(183, 2)
+>>> video_aintervals.shape
+(5721, 2)
+```
+For the video "--qXJuDtHPw", the sequence of features is 1715 for visual, 183 for language and 5721 for acoustic by length. Hence we need to perform alignment to make sure different modalities of features are collected from the same segments of the video. The two most commonly used alignment approaches are:
 
+I) Global alignment. Basically, it means that we align everything to the sentiment labels. Since there is only one global sentiment label for a video, this is actually conducting global pooling of the features over the time axis.
+
+II) Word-level alignment. In recent papers, it has been a common practice to conduct word-level alignment. Essentially, it is to get the representations of each modality for each word appearing in the video.
+
+In CMU Multimodal Data SDK, The way to implement alignment is as follows.
+```python
+>>> from mmsdk import mmdatasdk
+>>> cmumosei_highlevel.align(key_name,collapse_functions=[myavg])
+```
+Where key_name is "glove_vectors" for word-level alignment and "Sentiment Label" or "Emotion Labels" for global alignment. The function "myavg" is any function that converts a sequence of feature vectors (shape = *M times N*) into one single feature vector (shape = *1 times N*). It accepts features and intervals as inputs and outputs a single vector. For example the following function ignores intervals and just takes the average of the input features:
+
+```python
+>>> import numpy
+>>> def myavg(intervals,features):
+>>>         return numpy.average(features,axis=0)
+```
+
+Multiple functions can be passed to *collapse_functions*, each of them will be applied one by one and will be concatenated as the final output. 
+
+With aligned features, one can freely apply any machine learning models.
 
 
