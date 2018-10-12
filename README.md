@@ -89,9 +89,9 @@ For a video, each modality of features are extracted from different time interva
 ```
 For the video "--qXJuDtHPw", the sequence of features is 1715 for visual, 183 for language and 5721 for acoustic by length. Hence we need to perform alignment to make sure different modalities of features are collected from the same segments of the video. The two most commonly used alignment approaches are:
 
-I) Global alignment. Basically, it means that we align everything to the sentiment labels. Since there is only one global sentiment label for a video, this is actually conducting global pooling of the features over the time axis.
+### Global alignment. Basically, it means that we align everything to the sentiment labels. Since there is only one global sentiment label for a video, this is actually conducting global pooling of the features over the time axis.
 
-II) Word-level alignment. In recent papers, it has been a common practice to conduct word-level alignment. Essentially, it is to get the representations of each modality for each word appearing in the video.
+### Word-level alignment. In recent papers, it has been a common practice to conduct word-level alignment. Essentially, it is to get the representations of each modality for each word appearing in the video.
 
 In CMU Multimodal Data SDK, The way to implement alignment is as follows.
 ```python
