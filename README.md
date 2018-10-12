@@ -3,7 +3,7 @@
 ## Clone the github project:
 
 ```bash
-git clone git@github.com:A2Zadeh/CMU-MultimodalSDK.git
+git clone path_to_git_repository/CMU-MultimodalSDK.git
 ```
 
 ## Install required python packages:
